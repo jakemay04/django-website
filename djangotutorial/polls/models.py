@@ -1,4 +1,7 @@
+import datetime
+
 from django.db import models
+from django.utils import timezone
 
 # Create your models here.
 
@@ -9,6 +12,10 @@ class Question(models.Model):
 
     def __str__(self):
         return self.question_text #method to make question visable as string in command line
+
+    def was_published_recently(self):
+        return self.pub_date >= timezone.now() - datetime.timedelta(days=1) #method to give questions published within the last day
+
 
 
 #model representing voting choice logic, creating foreign key to link question to choice. also includes voting/text logic
