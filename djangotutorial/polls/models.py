@@ -1,3 +1,14 @@
 from django.db import models
 
 # Create your models here.
+
+#model representing the questions logic, utilizing build in django model subclasses.
+class Question(models.Model):
+    question_text = models.CharField(max_length=200)
+    pub_date = models.DateTimeField("Date Published")
+
+#model representing voting choice logic, creating foreign key to link question to choice. also includes voting/text logic
+class Choice(models.Model):
+    question = models.ForeignKey(Question,on_delete=models.CASCADE) #Names like question, choice_text and votes will be used as columns names in DB
+    choice_text = models.CharField(max_length=200)
+    votes = models.IntegerField(default=0)
